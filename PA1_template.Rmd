@@ -5,21 +5,76 @@ output:
     keep_md: true
 ---
 
-
 ## Loading and preprocessing the data
+```{r}
+setwd("C:/Users/Ando/Dropbox/Coursera/Reproducible Research/Peer Graded Assignment")
+# Loading data
+df <- read.csv(file="activity.csv", header=T, sep=",",
+							  stringsAsFactors=F)
+str(df)
+```
 
-
-
-## What is mean total number of steps taken per day?
-
-
-
+## What is mean total number of steps taken per day? 
+```{r}
+tns <- with(data=df, tapply(steps, date, sum, na.rm=T ))
+br <- seq(0, 25000, 1000)
+hist(tns, col="steelblue", breaks = br, xlab="Total number of steps",
+		 main="Histogram of total number of steps (per day)")
+```
+```{r}
+coef <- c(Mean.of.Steps = mean(tns), Median.of.Steps = median(tns))
+coef
+```
 ## What is the average daily activity pattern?
-
+```{r}
+tns.avg <- with(data=df, tapply(steps, date, mean, na.rm=T))
+plot(as.Date(unique(df$date)), tns.avg, t="l", lwd="3",
+		 ylab="Average number of steps", xlab="Date")
+points(as.Date(unique(df$date)), tns.avg, pch=19)
+```
+  
+```{r}
+int5min <- with(data=df, tapply(steps, interval, mean, na.rm=T))
+max(int5min)
+```
 
 
 ## Imputing missing values
+```{r}
+sum(!complete.cases(df))
+```
+```{r, results='hide'}
+library(dplyr)
+```
+```{r}
+ix <- is.na(df$steps)
+df.m <- tbl_df(df)
+df.m <- df.m %>% 
+	group_by(interval) %>%
+	mutate(avg = mean(steps, na.rm=T)) 
+df.m$steps[ix] <- df.m$avg[ix]
 
-
+tns.m <- with(data=df.m, tapply(steps, date, sum))
+hist(tns.m, col="steelblue", breaks = br, xlab="Total number of steps",
+		 main="Histogram of total number of steps (per day)")
+coef.m <- c(Mean.of.Steps = mean(tns.m), Median.of.Steps = median(tns.m))
+coef.m
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+wd <-weekdays(as.Date(df$date))
+names <- names(table(wd))
+
+dummy <- as.factor(wd == names[6:7])
+levels(dummy) <- c("weekday", "weekend")
+table(dummy)
+df.m <- cbind(df.m, dummy) 
+library(lattice)
+df.n <- df.m %>%
+	group_by(dummy, interval) %>%
+	mutate(m = mean(steps))
+
+xyplot(data=df.n, m~interval|dummy, layout=c(1, 2), t="s", 
+			 ylab="Number of steps", xlab="Interval")
+```
