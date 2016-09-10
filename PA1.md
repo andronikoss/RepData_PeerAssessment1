@@ -7,11 +7,12 @@ output: html_document
 
 
 ### 1. Loading Data
+
+In the very beginning, we just read in the raw dataset, and ask with command  `r str` its structur. 
 ```{r}
 setwd("C:/Users/Ando/Dropbox/Coursera/Reproducible Research/Peer Graded Assignment")
 # Loading data
-df <- read.csv(file="activity.csv", header=T, sep=",",
-							  stringsAsFactors=F)
+df <- read.csv(file="activity.csv", header=T, sep=",", stringsAsFactors=F)
 str(df)
 ```
 ```{r}
