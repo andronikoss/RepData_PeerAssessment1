@@ -30,7 +30,7 @@ hist(tns, col="steelblue", breaks = br, xlab="Total number of steps",
 ![plot of figure01](figure01.png) 
 
 ###3. Mean and median number of steps taken each day  
-```{r result=T}
+```{r results=T}
 coef <- c(Mean.of.Steps = mean(tns), Median.of.Steps = median(tns))
 coef
 ```
