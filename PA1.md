@@ -57,7 +57,8 @@ plot(as.Date(unique(df$date)), tns.avg, t="l", lwd="3",
 points(as.Date(unique(df$date)), tns.avg, pch=19)
 ```
 ![plot of figure02](figure02.bmp) 
-the plot above shows that for some days, there was no information available, therefore we see the unusual breaks in the trend.
+
+The plot above shows that for some days, there was no information available, therefore we see the unusual breaks in the trend.
 ###5. The 5-minute interval that, on average, contains the maximum number of steps  
 
 Ultimately, it is also possible to compute the average step amount in 5-min. intervalls! For this reason we can use different commands, here we made use of `tapply`.
@@ -95,6 +96,8 @@ hist(tns.m, col="steelblue", breaks = br, xlab="Total number of steps",
 		 main="Histogram of total number of steps (per day)")
 ```
 ![plot of figure03](figure03.bmp)  
+
+Refilling the date by means will change the shape of histogram (compare with the first figure)
 ```{r}
 coef.m <- c(Mean.of.Steps = mean(tns.m), Median.of.Steps = median(tns.m))
 coef.m
@@ -103,7 +106,9 @@ coef.m
   Mean.of.Steps Median.of.Steps 
        10766.19        10766.19 
 ```      
+We can also see, that the artificial refilling of `NAs` by mean values, will lead to higher mean and median of steps per day!
 ### Are there differences in activity patterns between weekdays and weekends?
+Here we convert the dates into weekdays, and then split into two categories `weekend` and `weekdays`.
 ```{r}
 wd <-weekdays(as.Date(df$date))
 names <- names(table(wd))
@@ -116,6 +121,8 @@ table(dummy)
 weekday weekend 
   15264    2304 
 ```  
+According to our computation there were 15264 weekdays and 2304 weekends!
+At the and we make use of command `xyplot` from `lattice` package, which is espesically good by plotting many graphs! 
 ```{r}
 df.m <- cbind(df.m, dummy) 
 library(lattice)
