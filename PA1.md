@@ -1,6 +1,6 @@
 ---
 title: "Peer Graded Assignment - RepRes"
-author: "Andranik Stepanyan"
+author: 
 date: "5. September 2016"
 output: html_document
 ---
@@ -14,7 +14,12 @@ df <- read.csv(file="activity.csv", header=T, sep=",",
 							  stringsAsFactors=F)
 str(df)
 ```
-
+```{r}
+'data.frame':      17568 obs. of  3 variables:
+ $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
+```
 ###2. Histogram of the total number of steps (tns) taken each day  
 ```{r}
 tns <- with(data=df, tapply(steps, date, sum, na.rm=T ))
@@ -22,6 +27,7 @@ br <- seq(0, 25000, 1000)
 hist(tns, col="steelblue", breaks = br, xlab="Total number of steps",
 		 main="Histogram of total number of steps (per day)")
 ```
+![plot of figure01](figure01.png) 
 
 ###3. Mean and median number of steps taken each day  
 ```{r}
