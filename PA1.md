@@ -8,19 +8,21 @@ output: html_document
 
 ### 1. Loading Data
 
-In the very beginning, we just read in the raw dataset, and ask with command  `r str` its structur. 
+In the very beginning, we just read in the raw dataset, and ask with command  `str` its structur. 
 ```{r}
 setwd("C:/Users/Ando/Dropbox/Coursera/Reproducible Research/Peer Graded Assignment")
 # Loading data
 df <- read.csv(file="activity.csv", header=T, sep=",", stringsAsFactors=F)
 str(df)
 ```
+Our data consists of 17568 observations and 3 variables, which are `steps`, `date` and `interval`. 
 ```{r}
 'data.frame':      17568 obs. of  3 variables:
  $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
  $ date    : chr  "2012-10-01" "2012-10-01" "2012-10-01" "2012-10-01" ...
  $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
+
 ###2. Histogram of the total number of steps (tns) taken each day  
 ```{r}
 tns <- with(data=df, tapply(steps, date, sum, na.rm=T ))
