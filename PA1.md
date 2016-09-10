@@ -27,14 +27,17 @@ br <- seq(0, 25000, 1000)
 hist(tns, col="steelblue", breaks = br, xlab="Total number of steps",
 		 main="Histogram of total number of steps (per day)")
 ```
-![plot of figure01](figure01.png) 
+![plot of figure01](figure01.bmp) 
 
 ###3. Mean and median number of steps taken each day  
-```{r results=T}
+```{r}
 coef <- c(Mean.of.Steps = mean(tns), Median.of.Steps = median(tns))
 coef
 ```
-
+```{r}
+  Mean.of.Steps Median.of.Steps 
+        9354.23        10395.00
+```
 
 ###4. Time series plot of the average number of steps taken  
  
@@ -44,16 +47,22 @@ plot(as.Date(unique(df$date)), tns.avg, t="l", lwd="3",
 		 ylab="Average number of steps", xlab="Date")
 points(as.Date(unique(df$date)), tns.avg, pch=19)
 ```
-  
+![plot of figure02](figure02.bmp)  
 ###5. The 5-minute interval that, on average, contains the maximum number of steps  
 
 ```{r}
 int5min <- with(data=df, tapply(steps, interval, mean, na.rm=T))
 max(int5min)
 ```
+```{r}
+[1] 206.1698
+```
 ### Code to describe and show a strategy for imputing missing data
 ```{r}
 sum(!complete.cases(df))
+```
+```{r}
+[1] 2304
 ```
 ```{r, results='hide'}
 library(dplyr)
@@ -69,10 +78,16 @@ df.m$steps[ix] <- df.m$avg[ix]
 tns.m <- with(data=df.m, tapply(steps, date, sum))
 hist(tns.m, col="steelblue", breaks = br, xlab="Total number of steps",
 		 main="Histogram of total number of steps (per day)")
+```
+![plot of figure03](figure03.bmp)  
+```{r}
 coef.m <- c(Mean.of.Steps = mean(tns.m), Median.of.Steps = median(tns.m))
 coef.m
 ```
-
+```{r}
+  Mean.of.Steps Median.of.Steps 
+       10766.19        10766.19 
+```      
 ### Are there differences in activity patterns between weekdays and weekends?
 ```{r}
 wd <-weekdays(as.Date(df$date))
@@ -81,6 +96,12 @@ names <- names(table(wd))
 dummy <- as.factor(wd == names[6:7])
 levels(dummy) <- c("weekday", "weekend")
 table(dummy)
+```
+```{r}
+weekday weekend 
+  15264    2304 
+```  
+```{r}
 df.m <- cbind(df.m, dummy) 
 library(lattice)
 df.n <- df.m %>%
@@ -90,3 +111,4 @@ df.n <- df.m %>%
 xyplot(data=df.n, m~interval|dummy, layout=c(1, 2), t="s", 
 			 ylab="Number of steps", xlab="Interval")
 ```
+![plot of figure04](figure04.bmp) 
