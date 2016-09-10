@@ -27,13 +27,14 @@ br <- seq(0, 25000, 1000)
 hist(tns, col="steelblue", breaks = br, xlab="Total number of steps",
 		 main="Histogram of total number of steps (per day)")
 ```
-![plot of figure01](figure01.bmp) 
+![plot of figure01](figure01.png) 
 
 ###3. Mean and median number of steps taken each day  
-```{r}
+```{r eval=T}
 coef <- c(Mean.of.Steps = mean(tns), Median.of.Steps = median(tns))
 coef
 ```
+
 
 ###4. Time series plot of the average number of steps taken  
  
