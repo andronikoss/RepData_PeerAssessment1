@@ -9,8 +9,9 @@ output: html_document
 ### 1. Loading Data
 
 In the very beginning, we just read in the raw dataset, and ask with command  `str` its structur. 
+*Attention:* For reproducibility of the code one should change the working directory properly!
 ```{r}
-setwd("C:/Users/Ando/Dropbox/Coursera/Reproducible Research/Peer Graded Assignment")
+setwd("~/Coursera/Reproducible Research/Peer Graded Assignment")
 # Loading data
 df <- read.csv(file="activity.csv", header=T, sep=",", stringsAsFactors=F)
 str(df)
