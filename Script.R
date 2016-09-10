@@ -2,8 +2,7 @@
 
 setwd("C:/Users/Ando/Dropbox/Coursera/Reproducible Research/Peer Graded Assignment")
 # Loading data
-df <- read.csv(file="activity.csv", header=T, sep=",",
-							  stringsAsFactors=F)
+df <- read.csv(file="activity.csv", header=T, sep=",", stringsAsFactors=F)
 str(df)
 
 
