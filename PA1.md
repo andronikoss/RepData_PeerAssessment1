@@ -25,12 +25,14 @@ Our data consists of 17568 observations and 3 variables, which are `steps`, `dat
 ```
 
 ###2. Histogram of the total number of steps (tns) taken each day  
+In this part of our analysis we will build a descriptive graphics, like histogramms, boxplots, scatterplots etc.
 ```{r}
 tns <- with(data=df, tapply(steps, date, sum, na.rm=T ))
 br <- seq(0, 25000, 1000)
 hist(tns, col="steelblue", breaks = br, xlab="Total number of steps",
 		 main="Histogram of total number of steps (per day)")
 ```
+The code above execute an aggregation of steps per day and depict the frequency of the results in form of a histogram.
 ![plot of figure01](figure01.bmp) 
 
 ###3. Mean and median number of steps taken each day  
